@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TaskService {
 
-    TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
@@ -30,7 +30,7 @@ public class TaskService {
     }
 
     public TaskResponseDTO create(TaskRequestDTO taskRequestDTO) {
-        Task task = requestConverter(taskRequestDTO);
+        Task task = new Task(taskRequestDTO);
         Task savedTask = taskRepository.save(task);
         return new TaskResponseDTO(savedTask);
     }
@@ -46,16 +46,6 @@ public class TaskService {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found."));
         taskRepository.delete(task);
-    }
-
-    private Task requestConverter(TaskRequestDTO taskRequestDTO) {
-        Task task = new Task();
-        if (taskRequestDTO.getAnnotation() != null) {
-            task.setAnnotation(taskRequestDTO.getAnnotation());
-        }
-        task.setMoment(taskRequestDTO.getMoment());
-        task.setTitle(taskRequestDTO.getTitle());
-        return task;
     }
 
     private void updateData(TaskRequestDTO taskRequestDTO, Task task) {

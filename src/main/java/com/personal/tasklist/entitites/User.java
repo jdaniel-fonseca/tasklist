@@ -1,5 +1,6 @@
 package com.personal.tasklist.entitites;
 
+import com.personal.tasklist.dto.request.UserRequestDTO;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "TB_USER")
 public class User implements Serializable {
 
     @Id
@@ -26,9 +28,13 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(Long id, Instant createdIn, String name, Integer age, String email, String password) {
+    public User(UserRequestDTO userRequestDTO) {
+        this.name = userRequestDTO.getName();
+        this.age = userRequestDTO.getAge();
+    }
+
+    public User(Long id, String name, Integer age, String email, String password) {
         this.id = id;
-        this.createdIn = createdIn;
         this.name = name;
         this.age = age;
         this.email = email;

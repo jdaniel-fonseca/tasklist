@@ -10,17 +10,17 @@ import java.time.Instant;
 @NoArgsConstructor
 public class TaskResponseDTO {
 
+    private Long id;
     private String title;
     private Instant moment;
     private String annotation;
     private Long userId;
 
     public TaskResponseDTO(Task task) {
+        this.id = task.getId();
         this.title = task.getTitle();
         this.annotation = task.getAnnotation();
         this.moment = task.getMoment();
         this.userId = task.getUser().getId();
     }
-
-
 }

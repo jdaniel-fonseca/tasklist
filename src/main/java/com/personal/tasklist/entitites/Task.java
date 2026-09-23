@@ -1,13 +1,13 @@
 package com.personal.tasklist.entitites;
 
+import com.personal.tasklist.dto.request.TaskRequestDTO;
 import jakarta.persistence.*;
-
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
 @Entity
+@Table(name = "TB_TASK")
 public class Task implements Serializable {
 
     @Id
@@ -22,6 +22,14 @@ public class Task implements Serializable {
     private User user;
 
     public Task() {
+    }
+
+    public Task(TaskRequestDTO taskRequestDTO) {
+        if (taskRequestDTO.getAnnotation() != null) {
+            this.annotation = taskRequestDTO.getAnnotation();
+        }
+        this.moment = taskRequestDTO.getMoment();
+        this.title = taskRequestDTO.getTitle();
     }
 
     public Task(Long id, String title, Instant moment, String annotation, User user) {

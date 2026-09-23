@@ -1,4 +1,4 @@
-package com.personal.tasklist.dto.auth;
+package com.personal.tasklist.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterDTO {
+public class UserRequestDTO {
 
-    private String email;
-    private String password;
-    private Integer age;
     private String name;
+    private Integer age;
 
 }
