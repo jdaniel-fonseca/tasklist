@@ -12,6 +12,7 @@ import com.personal.tasklist.services.TaskService;
 import com.personal.tasklist.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,7 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private TaskService taskService;
+
     @Autowired
     private UserService userService;
 
@@ -30,6 +32,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     TaskRepository taskRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -40,7 +45,7 @@ public class TestConfig implements CommandLineRunner {
         registerDTO.setName("Jose Daniel");
         registerDTO.setEmail("jdaniel@gmail.com");
         registerDTO.setAge(18);
-        registerDTO.setPassword("@Shaske3");
+        registerDTO.setPassword(passwordEncoder.encode("senhateste123@"));
 
         UserResponseDTO userDTO = registerService.create(registerDTO);
 

@@ -1,17 +1,18 @@
 package com.personal.tasklist.entitites;
 
+import com.personal.tasklist.dto.auth.RegisterDTO;
 import com.personal.tasklist.dto.request.UserRequestDTO;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "TB_USER")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +29,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(UserRequestDTO userRequestDTO) {
-        this.name = userRequestDTO.getName();
-        this.age = userRequestDTO.getAge();
+    public User(RegisterDTO registerDTO) {
+        this.email = registerDTO.getEmail();
+        this.password = registerDTO.getPassword();
+        this.name = registerDTO.getName();
+        this.age = registerDTO.getAge();
     }
 
     public User(Long id, String name, Integer age, String email, String password) {
@@ -81,8 +84,18 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     public void setPassword(String password) {

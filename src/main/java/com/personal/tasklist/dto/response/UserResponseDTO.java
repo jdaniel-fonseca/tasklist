@@ -23,6 +23,7 @@ public class UserResponseDTO {
     public UserResponseDTO(User user) {
         this.id = user.getId();
         this.age = user.getAge();
+        this.name = user.getName();
         this.createdIn = user.getCreatedIn();
         this.email = user.getEmail();
 
