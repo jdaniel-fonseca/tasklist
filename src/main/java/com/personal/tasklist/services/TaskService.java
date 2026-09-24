@@ -2,6 +2,7 @@ package com.personal.tasklist.services;
 import com.personal.tasklist.dto.request.TaskRequestDTO;
 import com.personal.tasklist.dto.response.TaskResponseDTO;
 import com.personal.tasklist.entitites.Task;
+import com.personal.tasklist.exceptions.NotFoundException;
 import com.personal.tasklist.repositories.TaskRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public class TaskService {
         return taskRepository
                 .findById(id)
                 .map(TaskResponseDTO::new)
-                .orElseThrow(() -> new RuntimeException("Task not found."));
+                .orElseThrow(() -> new NotFoundException(id));
     }
 
     public TaskResponseDTO create(TaskRequestDTO taskRequestDTO) {
@@ -37,14 +38,14 @@ public class TaskService {
 
     public TaskResponseDTO update(TaskRequestDTO taskRequestDTO, Long id) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found."));
+                .orElseThrow(() -> new NotFoundException(id));
         updateData(taskRequestDTO, task);
         return new TaskResponseDTO(task);
     }
 
     public void deleteById(Long id) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found."));
+                .orElseThrow(() -> new NotFoundException(id));
         taskRepository.delete(task);
     }
 

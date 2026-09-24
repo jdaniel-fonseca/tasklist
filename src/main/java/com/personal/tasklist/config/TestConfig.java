@@ -36,7 +36,6 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-
     @Override
     public void run(String... args) throws Exception {
 
@@ -45,7 +44,7 @@ public class TestConfig implements CommandLineRunner {
         registerDTO.setName("Jose Daniel");
         registerDTO.setEmail("jdaniel@gmail.com");
         registerDTO.setAge(18);
-        registerDTO.setPassword(passwordEncoder.encode("senhateste123@"));
+        registerDTO.setPassword("senhateste123@");
 
         UserResponseDTO userDTO = registerService.create(registerDTO);
 
