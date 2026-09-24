@@ -2,6 +2,7 @@ package com.personal.tasklist.controllers;
 import com.personal.tasklist.dto.request.UserRequestDTO;
 import com.personal.tasklist.dto.response.UserResponseDTO;
 import com.personal.tasklist.services.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
+@SecurityRequirement(name = "bearer-key")
 public class UserController {
 
     private final UserService userService;

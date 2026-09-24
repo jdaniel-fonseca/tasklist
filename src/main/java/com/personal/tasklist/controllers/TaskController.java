@@ -3,6 +3,7 @@ package com.personal.tasklist.controllers;
 import com.personal.tasklist.dto.request.TaskRequestDTO;
 import com.personal.tasklist.dto.response.TaskResponseDTO;
 import com.personal.tasklist.services.TaskService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -13,6 +14,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/tasks")
+@SecurityRequirement(name = "bearer-key")
 public class TaskController {
 
     private final TaskService taskService;
